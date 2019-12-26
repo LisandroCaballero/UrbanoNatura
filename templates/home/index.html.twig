@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
 {% block body %}
@@ -20,8 +20,8 @@
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Funciones</font></font></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="{{ assets('bajar_pi') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bajar PI </font></font></a>
-                        <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Leer Piezas</font></font></a>
-                        <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Impresiones RICOH</font></font></a>
+                        <a class="dropdown-item" href="{{ assets('leerpiezas') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Leer Piezas</font></font></a>
+                        <a class="dropdown-item" href="{{ assets('impresionesricoh') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Impresiones RICOH</font></font></a>
                     </div>
                 </li>
             </ul>
@@ -38,6 +38,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ assets('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock %}

@@ -27,7 +27,11 @@ class BajarPIController extends AbstractController
     public function getPiezasU3()
     {
         sleep(5);
-        $response = new Response(json_encode(array('name' => "lisandro")));
+        $array = array(
+            'name' => "lisandro",
+            'domicilio' => array("telefonoDomicilio" => 123456, "direccion" => "ferre 6660")
+        );
+        $response = new Response(json_encode($array));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }

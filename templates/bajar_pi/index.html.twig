@@ -1,24 +1,28 @@
 {% extends 'home/index.html.twig' %}
+
+
+
 {% block container %}
 
-    <div class="row">
+    <div class="row" id="bajar">
         <div class="col-md-12">
             <h1>Bajar PI</h1>
             <div class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="datepicker" value="{{ "now" | date("d-m-Y") }}" id="fecha" >
+                    <input type="text" class="datepicker form-control" value="{{ "now" | date("d-m-Y") }}" id="fecha" readonly>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2" id="consultar">
                     <span>Consultar</span>
                 </button>
+
             </div>
-
-
         </div>
     </div>
 
 
 {% endblock container %}
+
+
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ assets('bundles/bajar_pi/js/bajar_pi.js') }}"></script>

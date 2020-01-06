@@ -1,8 +1,58 @@
 {% extends 'home/index.html.twig' %}
 {% block container %}
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Leer Piezas</h1>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <h1>Piezas por leer</h1>
+            <div class='col-sm-4' >
+                <div class="input-group">
+                    <input type='text' name="lectura" class="form-control" id='lectura' autocomplete="off" style="width: 150px;" />
+                    <span class="input-group-btn" class="resultado"  >
+
+                </span>
+            <div class='col-sm-4' >
+                    <span class="input-group-btn" id="resultado"><button  class="btn btn-outline-warning"  type="button">  leer...</button></span>
+            </div>
+                </div>
+            </div>
         </div>
+
+
+
+        <div class="row">
+            <div class='col-sm-5' >
+                <label>Piezas por leer</label>
+                <table class="table table-striped table-bordered table-hover table-dt" id="piezasAC">
+                    <thead>
+                    <tr>
+                        <th>Caja</th><th>Pedido</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class='col-sm-5' >
+                <label>Piezas Leídas</label>
+                <table class="table table-striped table-bordered table-hover table-dt" id="piezasPD">
+                    <thead>
+                    <tr>
+                        <th>Caja</th><th>Pedido</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
     </div>
 {% endblock container %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ assets('bundles/leer_piezas/js/leer_piezas.js') }}"></script>
+
+{% endblock %}

@@ -6,15 +6,15 @@ body{
     background: #ffffff;
     margin-top: 35px;
     padding: 20px;
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
-    -box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    /*-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    -box-shadow: 0 1px 3px rgba(0,0,0,.13);*/
     width: 72%;
     min-height: 500px;
     border-left: 1px solid #ccc;
-    box-shadow: -5px -1px 5px #ddd;
+    /*box-shadow: -5px -1px 5px #ddd;*/
     padding:25px;
-    webkit-box-shadow:inset 2px 2px 2px 5px #82767A;
-    box-shadow:inset 2px 2px 2px 5px #82767A;
+    /*webkit-box-shadow:inset 2px 2px 2px 5px #82767A;
+    #box-shadow:inset 2px 2px 2px 5px #82767A;*/
 
 
 }
@@ -22,4 +22,36 @@ body{
 .calendar {
     border: 1px solid red;
     height: 30px;
+}
+/*FOOTER*/
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    clear: both;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    background: #222222;
+    border-top: 4px solid #ee2d4d;
+}
+
+/*CENTRAL*/
+#container{
+    width: 72%;
+    min-height: 500px;
+    float: right;
+     border-left: 1px solid #ccc;
+    box-shadow: -5px -1px 5px #ddd;
+    padding:25px;
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-top: 0px;
+    display: inline-block;
 }

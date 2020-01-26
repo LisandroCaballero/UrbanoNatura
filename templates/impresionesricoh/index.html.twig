@@ -1,8 +1,23 @@
 {% extends 'home/index.html.twig' %}
 {% block container %}
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Impresion Ricoh</h1>
+
+    <div class="col-md-6">
+        <h1>Impresion Ricoh</h1>
+        <div class='col-md-6'>
+            <button type="button" class="btn btn-default" aria-label="Left Align" id="ifUrbano">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Enviar If a Urbano
+            </button>
+        </div>
+        <div class='col-md-6'>
+            <div class="input-group">
+                <select class="form-control" id="sucursal">
+                    <option disabled selected value="">Sucursal</option>
+                    <option value="LLC">LLC - Logistica Liviana</option>
+                    <option value="LLS">LLS - Sarandi</option>
+                </select>
+            </div>
         </div>
     </div>
+
+
 {% endblock container %}

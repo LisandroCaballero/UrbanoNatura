@@ -6,16 +6,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LeerpiezasController extends AbstractController
+class LeerPiezasController extends AbstractController
 {
     /**
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @Route("/leerpiezas", name="leerpiezas")
+     * @Route("/leerPiezas", name="leerPiezas")
      */
     public function index()
     {
-        return $this->render('leerpiezas/index.html.twig', [
-            'controller_name' => 'LeerpiezasController',
+        return $this->render('leerPiezas/index.html.twig', [
+            'controller_name' => 'LeerPiezasController',
         ]);
     }
 }

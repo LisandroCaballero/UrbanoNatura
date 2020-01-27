@@ -55,3 +55,13 @@ body{
     padding-top: 0px;
     display: inline-block;
 }
+
+/*Leer Piezas*/
+#row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
+}

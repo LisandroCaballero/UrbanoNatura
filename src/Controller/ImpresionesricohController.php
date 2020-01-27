@@ -10,11 +10,11 @@ class ImpresionesricohController extends AbstractController
 {
     /**
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @Route("/impresionesricoh", name="impresionesricoh")
+     * @Route("/impresionesRicoh", name="impresionesRicoh")
      */
     public function index()
     {
-        return $this->render('impresionesricoh/index.html.twig', [
+        return $this->render('impresionesRicoh/index.html.twig', [
             'controller_name' => 'ImpresionesricohController',
         ]);
     }

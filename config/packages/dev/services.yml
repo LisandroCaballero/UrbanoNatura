@@ -1,0 +1,3 @@
+parameters:
+  api_urbano3: 'http://desarrollo.urbano.com.ar/webservice/natura/'
+  endpoint_lista_pi: '%api_urbano3%listaPi/'

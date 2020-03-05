@@ -8,9 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Unirest\Request as unirest;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class BajarPIController extends AbstractController
 {
+    private $endpointListaPi;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->endpointListaPi = $params->get('endpoint_lista_pi');
+    }
+
     /**
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @Route("/bajar_pi", name="bajar_pi")
@@ -32,7 +40,7 @@ class BajarPIController extends AbstractController
         $array = array();
         $headers = array('Accept' => 'application/json');
         $data = array('shipper' => 1861, 'fecha' => $fecha);
-        $response = unirest::get('http://desarrollo.urbano.com.ar/webservice/natura/listaPi/', $headers, $data);
+        $response = unirest::get($this->endpointListaPi, $headers, $data);
         $total = count((array)$response->body);
         if (isset($response->body->error)) {
             $array = array(

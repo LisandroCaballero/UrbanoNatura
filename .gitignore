@@ -1,5 +1,5 @@
 ###<Datos mariadb ###
-docker-config/data
+/docker-config/data
 
 ###< project phpstorm ###
 .idea/

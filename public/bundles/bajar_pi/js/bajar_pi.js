@@ -7,13 +7,16 @@ $(document).ready(function() {
         }
     );
 
-    $("#consultar").off("click");
-    $("#consultar").on( "click", function(){
-        var buttton = $(this);
+    $("#bajar_pi").off("submit");
+    $("#bajar_pi").on( "submit", function(e){
+        e.preventDefault();
+        var buttton =  $("#consultar");
         $.ajax({
             type: 'POST',
             url: Routing.generate("get-piezas-U3"),
             data: {
+                shipper:$("#shipper").val(),
+                sucursal:$("#sucursal").val(),
                 fecha:$("#fecha").val()
             },
             beforeSend: function() {
@@ -40,7 +43,7 @@ $(document).ready(function() {
                 // Imprimir alerta verde para OK .
             },
             error: function(xhr) { // if error occured
-                $("#resp-mensaje").html('Hubo un error intente nuevamente');
+                $("#resp-mensaje").html(xhr.responseJSON.detail);
                 $("#resp-mensaje").removeClass('invisible');
                 $("#resp-mensaje").addClass('visible');
                 $("#resp-mensaje").addClass('alert-danger');
@@ -51,5 +54,7 @@ $(document).ready(function() {
             },
             dataType: 'json'
         });
+        return false;
     });
+
 });

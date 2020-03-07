@@ -7,29 +7,30 @@
     <div class="row" id="bajar">
         <div class="col-md-12">
             <h1>Bajar PI</h1>
-            <div class="form-inline">
-                <div class="form-group mx-sm-3 mb-2">
-                    <select class="form-control" id="sucursal">
-                        <option disabled selected value="">Shipper</option>
-                        <option value="2434">2434</option>
-                        <option value="2435">2435</option>
-                    </select>
+            <form method="POST" id="bajar_pi" role="form">
+                <div class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select required class="form-control" id="shipper">
+                            <option disabled selected value="">Shipper</option>
+                            <option value="671">671</option>
+                            <option value="1861">1861</option>
+                        </select>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select required class="form-control" id="sucursal">
+                            <option disabled selected value="">Sucursal</option>
+                            <option value="LLC">LLC - Logistica Liviana</option>
+                            <option value="LLS">LLS - Sarandi</option>
+                        </select>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input required type="text" class="datepicker form-control" value="{{ "now" | date("d-m-Y") }}" id="fecha" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2" id="consultar">
+                        <span>Consultar</span>
+                    </button>
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <select class="form-control" id="sucursal">
-                        <option disabled selected value="">Sucursal</option>
-                        <option value="LLC">LLC - Logistica Liviana</option>
-                        <option value="LLS">LLS - Sarandi</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="datepicker form-control" value="{{ "now" | date("d-m-Y") }}" id="fecha" readonly>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2" id="consultar">
-                    <span>Consultar</span>
-                </button>
-
-            </div>
+            </form>
         </div>
     </div>
 

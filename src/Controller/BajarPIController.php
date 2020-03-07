@@ -36,26 +36,22 @@ class BajarPIController extends AbstractController
      */
     public function getPiezasU3(Request $request)
     {
-        $fecha = $request->get("fecha");
-        $array = array();
+        $code = 0;
+        $mensaje = 'No hay datos para la fecha seleccionada.';
         $headers = array('Accept' => 'application/json');
-        $data = array('shipper' => 1861, 'fecha' => $fecha);
-        $response = unirest::get($this->endpointListaPi, $headers, $data);
-        $total = count((array)$response->body);
-        if (isset($response->body->error)) {
-            $array = array(
-                'response' => $response->body,
-                'mensaje' => $response->body->descError,
-                'code' => 0
-            );
-        }else{
-            $array = array(
-                'mensaje' => 'Total de piezas bajadas ' .$total,
-                'code' => 1
-            );
+        $data = array('shipper' => $request->get("shipper"), 'fecha' => $request->get("fecha"));
+        $response = unirest::post($this->endpointListaPi, $headers, json_encode($data));
+        if($response->code !== 200)
+            throw new \RuntimeException('No anduvo.');
 
+        if(!empty($response->body->data)){
+            $mensaje = 'Total de piezas '. count($response->body->data);
+            $code = 1;
         }
-        //throw new \RuntimeException('No anduvo.');
+        $array = array(
+            'mensaje' => $mensaje,
+            'code' => $code
+        );
         $response = new Response(json_encode($array));
         $response->headers->set('Content-Type', 'application/json');
         return $response;

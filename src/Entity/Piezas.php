@@ -17,6 +17,31 @@ class Piezas
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $id_reg;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $lote;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $sucursal;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $shipper;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $campo1;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $campo2;
@@ -27,33 +52,88 @@ class Piezas
     private $campo11;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_reg;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $file_nombre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime")
      */
-    private $campo1;
+    private $datetime;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $shipper;
+    private $id_usuario;
 
     /**
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=2)
      */
-    private $sucursal;
+    private $estado;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIdReg(): ?int
+    {
+        return $this->id_reg;
+    }
+
+    public function setIdReg(int $id_reg): self
+    {
+        $this->id_reg = $id_reg;
+
+        return $this;
+    }
+
+    public function getLote(): ?int
+    {
+        return $this->lote;
+    }
+
+    public function setLote(int $lote): self
+    {
+        $this->lote = $lote;
+
+        return $this;
+    }
+
+    public function getSucursal(): ?string
+    {
+        return $this->sucursal;
+    }
+
+    public function setSucursal(string $sucursal): self
+    {
+        $this->sucursal = $sucursal;
+
+        return $this;
+    }
+
+    public function getShipper(): ?int
+    {
+        return $this->shipper;
+    }
+
+    public function setShipper(int $shipper): self
+    {
+        $this->shipper = $shipper;
+
+        return $this;
+    }
+
+    public function getCampo1(): ?string
+    {
+        return $this->campo1;
+    }
+
+    public function setCampo1(string $campo1): self
+    {
+        $this->campo1 = $campo1;
+
+        return $this;
     }
 
     public function getCampo2(): ?string
@@ -80,18 +160,6 @@ class Piezas
         return $this;
     }
 
-    public function getIdReg(): ?int
-    {
-        return $this->id_reg;
-    }
-
-    public function setIdReg(int $id_reg): self
-    {
-        $this->id_reg = $id_reg;
-
-        return $this;
-    }
-
     public function getFileNombre(): ?string
     {
         return $this->file_nombre;
@@ -104,38 +172,38 @@ class Piezas
         return $this;
     }
 
-    public function getCampo1(): ?string
+    public function getDatetime(): ?\DateTimeInterface
     {
-        return $this->campo1;
+        return $this->datetime;
     }
 
-    public function setCampo1(string $campo1): self
+    public function setDatetime(\DateTimeInterface $datetime): self
     {
-        $this->campo1 = $campo1;
+        $this->datetime = $datetime;
 
         return $this;
     }
 
-    public function getShipper(): ?int
+    public function getIdUsuario(): ?int
     {
-        return $this->shipper;
+        return $this->id_usuario;
     }
 
-    public function setShipper(int $shipper): self
+    public function setIdUsuario(int $id_usuario): self
     {
-        $this->shipper = $shipper;
+        $this->id_usuario = $id_usuario;
 
         return $this;
     }
 
-    public function getSucursal(): ?string
+    public function getEstado(): ?string
     {
-        return $this->sucursal;
+        return $this->estado;
     }
 
-    public function setSucursal(string $sucursal): self
+    public function setEstado(string $estado): self
     {
-        $this->sucursal = $sucursal;
+        $this->estado = $estado;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Piezas;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +15,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class BajarPIController extends AbstractController
 {
     private $endpointListaPi;
+    private $idUser;
 
     public function __construct(ParameterBagInterface $params)
     {
         $this->endpointListaPi = $params->get('endpoint_lista_pi');
+        $this->idUser = 1;
     }
 
     /**
@@ -34,15 +38,41 @@ class BajarPIController extends AbstractController
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @Route("/get-piezas-U3", name="get-piezas-U3", methods={"POST"}, options={"expose"=true})
      */
-    public function getPiezasU3(Request $request)
+    public function getPiezasU3(Request $request, EntityManagerInterface $entityManager)
     {
+        $shipper = $request->get("shipper");
+        $sucursal = $request->get("sucursal");
+        $fecha = $request->get("fecha");
         $code = 0;
+        $lote = date('YmdHis');
         $mensaje = 'No hay datos para la fecha seleccionada.';
         $headers = array('Accept' => 'application/json');
-        $data = array('shipper' => $request->get("shipper"), 'fecha' => $request->get("fecha"));
+        $data = array('shipper' => $shipper, 'fecha' => $fecha);
         $response = unirest::post($this->endpointListaPi, $headers, json_encode($data));
         if($response->code !== 200)
             throw new \RuntimeException('No anduvo.');
+
+        $startDate = new \DateTime('now');
+        $repositorio = $entityManager->getRepository(Piezas::class);
+        foreach ($response->body->data as $value){
+            if(!empty($repositorio->findOneBySomeField($value)))
+                continue;
+            $pieza = new Piezas();
+            $pieza->setIdReg($value->id_reg);
+            $pieza->setLote($lote);
+            $pieza->setShipper($shipper);
+            $pieza->setSucursal($sucursal);
+            $pieza->setCampo1($value->campo1);
+            $pieza->setCampo2($value->campo2);
+            $pieza->setCampo11($value->campo11);
+            $pieza->setFileNombre($value->file_nombre);
+            $pieza->setDatetime($startDate);
+            $pieza->setIdUsuario($this->idUser);
+            $pieza->setEstado('PD');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($pieza);
+            $em->flush();
+        }
 
         if(!empty($response->body->data)){
             $mensaje = 'Total de piezas '. count($response->body->data);

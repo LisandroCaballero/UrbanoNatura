@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Constantes\EstadosConstantes;
 use App\Entity\Piezas;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -68,7 +69,7 @@ class BajarPIController extends AbstractController
             $pieza->setFileNombre($value->file_nombre);
             $pieza->setDatetime($startDate);
             $pieza->setIdUsuario($this->idUser);
-            $pieza->setEstado('PD');
+            $pieza->setEstado(EstadosConstantes::ESTADO_PIEZA_PD);
             $em = $this->getDoctrine()->getManager();
             $em->persist($pieza);
             $em->flush();

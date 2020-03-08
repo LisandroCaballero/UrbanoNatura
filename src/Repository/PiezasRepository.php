@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constantes\EstadosConstantes;
 use App\Entity\Piezas;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -25,7 +26,7 @@ class PiezasRepository extends ServiceEntityRepository
             ->andWhere('p.campo2 = :campo2')
             ->setParameter('campo2', $value->campo2)
             ->andWhere('p.estado = :estado')
-            ->setParameter('estado', 'PD')
+            ->setParameter('estado', EstadosConstantes::ESTADO_PIEZA_PD)
             ->getQuery()
             ->getOneOrNullResult();
     }

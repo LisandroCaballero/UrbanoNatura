@@ -42,9 +42,9 @@ class BajarPIController extends AbstractController
     public function getPiezasU3(Request $request, EntityManagerInterface $entityManager)
     {
         $shipper = $request->get("shipper");
-        $sucursal = $request->get("sucursal");
         $fecha = $request->get("fecha");
         $code = 0;
+        $total = 0;
         $lote = date('YmdHis');
         $mensaje = 'No hay datos para la fecha seleccionada.';
         $headers = array('Accept' => 'application/json');
@@ -52,31 +52,38 @@ class BajarPIController extends AbstractController
         $response = unirest::post($this->endpointListaPi, $headers, json_encode($data));
         if($response->code !== 200)
             throw new \RuntimeException('No anduvo.');
-
         $startDate = new \DateTime('now');
         $repositorio = $entityManager->getRepository(Piezas::class);
+        $em = $this->getDoctrine()->getManager();
         foreach ($response->body->data as $value){
-            if(!empty($repositorio->findOneBySomeField($value)))
-                continue;
-            $pieza = new Piezas();
-            $pieza->setIdReg($value->id_reg);
-            $pieza->setLote($lote);
-            $pieza->setShipper($shipper);
-            $pieza->setSucursal($sucursal);
-            $pieza->setCampo1($value->campo1);
-            $pieza->setCampo2($value->campo2);
-            $pieza->setCampo11($value->campo11);
-            $pieza->setFileNombre($value->file_nombre);
-            $pieza->setDatetime($startDate);
-            $pieza->setIdUsuario($this->idUser);
-            $pieza->setEstado(EstadosConstantes::ESTADO_PIEZA_PD);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($pieza);
-            $em->flush();
+            try {
+                if(!empty($repositorio->findOneBySomeField($value)))
+                    continue;
+                $em->getConnection()->beginTransaction();
+                $pieza = new Piezas();
+                $pieza->setIdReg($value->id_reg);
+                $pieza->setLote($lote);
+                $pieza->setShipper($shipper);
+                $pieza->setSucursal($value->prov_codigo);
+                $pieza->setCampo1($value->campo1);
+                $pieza->setCampo2($value->campo2);
+                $pieza->setCampo11($value->campo11);
+                $pieza->setFileNombre($value->file_nombre);
+                $pieza->setDatetime($startDate);
+                $pieza->setIdUsuario($this->idUser);
+                $pieza->setEstado(EstadosConstantes::ESTADO_PIEZA_PD);
+                $em->persist($pieza);
+                $em->flush();
+                $em->getConnection()->commit();
+                $total++;
+            } catch (Exception $e) {
+                $em->getConnection()->rollBack();
+                throw new \RuntimeException('No anduvo.');
+            }
         }
 
-        if(!empty($response->body->data)){
-            $mensaje = 'Total de piezas '. count($response->body->data);
+        if(!empty($total)){
+            $mensaje = 'Se genero lote '. $lote . ' con un total '. $total . ' de piezas.';
             $code = 1;
         }
         $array = array(

@@ -16,7 +16,6 @@ $(document).ready(function() {
             url: Routing.generate("get-piezas-U3"),
             data: {
                 shipper:$("#shipper").val(),
-                sucursal:$("#sucursal").val(),
                 fecha:$("#fecha").val()
             },
             beforeSend: function() {

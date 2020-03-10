@@ -1,62 +1,33 @@
 {% extends 'home/index.html.twig' %}
 
+
+
 {% block container %}
-    {% block stylesheets %}
-        {{ parent() }}
 
-    {% endblock %}
-    <div class="container">
-        <div>
-
-            <div>
-                <h1>Piezas por leer</h1>
-                <div>
-                    <div >
-                        <input type='text' name="lectura" class="form-control" id='lectura' autocomplete="off"
-                               style="width: 150px;"/>
-                        <span class="input-group-btn" class="resultado">
-
-                </span>
-                        <div >
-
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Piezas por leer</h1>
+            <form action="get-piezas-lote" method="POST" id="nro_lote" role="form">
+                <div class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select required class="form-control" name="lote">
+                            <option disabled selected value="">Lote</option>
+                            {% for lote in lotes %}
+                                <option value="{{ lote.lote }}">{{ lote.lote }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
+                    <button type="submit" class="btn btn-primary mb-2" id="leer">
+                        <span>Leer</span>
+                    </button>
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class='col-sm-5'>
-                    <label>Piezas por leer</label>
-                    <table class="table table-striped table-bordered table-hover table-dt" id="piezasAC">
-                        <thead>
-                        <tr>
-                            <th>Caja</th>
-                            <th>Pedido</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class='col-sm-5'>
-                    <label>Piezas Leídas</label>
-                    <table class="table table-striped table-bordered table-hover table-dt" id="piezasPD">
-                        <thead>
-                        <tr>
-                            <th>Caja</th>
-                            <th>Pedido</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+            </form>
         </div>
     </div>
+
+
 {% endblock container %}
+
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/leer_piezas/js/leer_piezas.js') }}"></script>

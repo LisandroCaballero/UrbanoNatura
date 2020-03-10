@@ -15,7 +15,7 @@ class ImpresionesricohController extends AbstractController
     public function index()
     {
         return $this->render('impresionesRicoh/index.html.twig', [
-            'controller_name' => 'ImpresionesricohController',
+
         ]);
     }
 }

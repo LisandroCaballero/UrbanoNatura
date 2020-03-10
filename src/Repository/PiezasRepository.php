@@ -6,6 +6,7 @@ use App\Constantes\EstadosConstantes;
 use App\Entity\Piezas;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Piezas|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,7 +21,7 @@ class PiezasRepository extends ServiceEntityRepository
         parent::__construct($registry, Piezas::class);
     }
 
-    public function findOneBySomeField($value): ?Piezas
+    public function findOneBySomeField($value)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.campo2 = :campo2')
@@ -28,6 +29,27 @@ class PiezasRepository extends ServiceEntityRepository
             ->andWhere('p.estado = :estado')
             ->setParameter('estado', EstadosConstantes::ESTADO_PIEZA_PD)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+    }
+
+    public function findAllLotes()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.estado = :estado')
+            ->setParameter('estado', EstadosConstantes::ESTADO_PIEZA_PD)
+            ->groupby('p.estado')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
+
+    public function findPiezasXLote($lote)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.estado = :estado')
+            ->setParameter('estado', EstadosConstantes::ESTADO_PIEZA_PD)
+            ->andWhere('p.lote = :lote')
+            ->setParameter('lote', $lote)
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 }

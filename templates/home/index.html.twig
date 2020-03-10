@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
 {% endblock %}
 
 {% block body %}
@@ -34,7 +35,7 @@
         {% block container %}
         {% endblock container %}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div id="resp-mensaje" class="alert invisible" role="alert">
 
                 </div>
@@ -48,4 +49,5 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
 {% endblock %}
